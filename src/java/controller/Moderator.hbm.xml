@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 23/11/2014 10:45:48 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="controller.Moderator" table="moderator" catalog="classifiedsadv">
+        <id name="modCod" type="java.lang.Integer">
+            <column name="modCod" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="user" class="controller.User" fetch="select">
+            <column name="userCod" />
+        </many-to-one>
+        <property name="nome" type="string">
+            <column name="nome" length="20" />
+        </property>
+        <set name="hidelogs" table="hidelog" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="modCod" />
+            </key>
+            <one-to-many class="controller.Hidelog" />
+        </set>
+    </class>
+</hibernate-mapping>

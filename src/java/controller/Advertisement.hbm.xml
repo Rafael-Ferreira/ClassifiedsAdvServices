@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 23/11/2014 10:45:48 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="controller.Advertisement" table="advertisement" catalog="classifiedsadv">
+        <id name="advCod" type="java.lang.Integer">
+            <column name="advCod" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="category" class="controller.Category" fetch="select">
+            <column name="catgCod" />
+        </many-to-one>
+        <many-to-one name="customer" class="controller.Customer" fetch="select">
+            <column name="cusCod" />
+        </many-to-one>
+        <property name="title" type="string">
+            <column name="title" length="100" />
+        </property>
+        <property name="description" type="string">
+            <column name="description" length="1000" />
+        </property>
+        <property name="value" type="java.lang.Float">
+            <column name="value" precision="8" />
+        </property>
+        <property name="site" type="string">
+            <column name="site" length="100" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="100" />
+        </property>
+        <property name="phone" type="string">
+            <column name="phone" length="16" />
+        </property>
+        <property name="hideAdvCod" type="java.lang.Boolean">
+            <column name="hideAdvCod" />
+        </property>
+        <property name="counter" type="java.lang.Integer">
+            <column name="counter" />
+        </property>
+        <set name="hidelogs" table="hidelog" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="advCod" />
+            </key>
+            <one-to-many class="controller.Hidelog" />
+        </set>
+        <set name="images" table="image" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="advCod" />
+            </key>
+            <one-to-many class="controller.Image" />
+        </set>
+    </class>
+</hibernate-mapping>

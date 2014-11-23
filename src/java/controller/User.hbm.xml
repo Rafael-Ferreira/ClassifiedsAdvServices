@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 23/11/2014 10:45:48 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="controller.User" table="user" catalog="classifiedsadv">
+        <id name="userCod" type="java.lang.Integer">
+            <column name="userCod" />
+            <generator class="identity" />
+        </id>
+        <property name="login" type="string">
+            <column name="login" length="10" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="10" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="50" />
+        </property>
+        <property name="level" type="java.lang.Integer">
+            <column name="level" />
+        </property>
+        <set name="customers" table="customer" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="userCod" />
+            </key>
+            <one-to-many class="controller.Customer" />
+        </set>
+        <set name="moderators" table="moderator" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="userCod" />
+            </key>
+            <one-to-many class="controller.Moderator" />
+        </set>
+    </class>
+</hibernate-mapping>
