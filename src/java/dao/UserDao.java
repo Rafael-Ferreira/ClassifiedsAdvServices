@@ -11,6 +11,7 @@ import java.awt.HeadlessException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 /**
@@ -83,6 +84,36 @@ public class UserDao {
 		session.close();
  	}
     
+    }
+
+    @SuppressWarnings("unchecked")
+    public boolean UsuarioEncontrado(User user) {
+        Session session = HibernateUtilDao.getSessionFactory().getCurrentSession();
+        try {
+            session.beginTransaction();
+            @SuppressWarnings("unchecked")
+            User u;
+            Query query;
+            query = session.createQuery("from Usuario where login = :usuario");
+            query.setParameter("usuario", user.getLogin());
+            u = (User) query.uniqueResult();
+           if (u != null) {
+               if (!u.getPassword().equals(user.getPassword())) {
+                   JOptionPane.showMessageDialog(null, "Senha Inválida");
+                   return false;
+               }   else {        
+                   return true;
+               }
+           } else {
+               JOptionPane.showMessageDialog(null, "Usuario não encontrado");
+               return false;
+           }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+        return false;
+        
     }
     
 }
